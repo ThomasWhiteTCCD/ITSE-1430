@@ -70,7 +70,7 @@
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(219, 20);
             this._txtName.TabIndex = 4;
-            this._txtName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+    
             // 
             // _txtDescription
             // 
@@ -85,7 +85,7 @@
             this._txtPrice.Name = "_txtPrice";
             this._txtPrice.Size = new System.Drawing.Size(219, 20);
             this._txtPrice.TabIndex = 6;
-            this._txtPrice.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            
             // 
             // _chkDiscontinued
             // 

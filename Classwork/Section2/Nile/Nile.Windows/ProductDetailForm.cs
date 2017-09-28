@@ -9,24 +9,44 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Nile.Windows {
-    public partial class ProductDetailForm : Form {
-        public ProductDetailForm()
+    public partial class ProductDetailForm : Form 
+    {
+        #region Construction
+        public ProductDetailForm () //: base()
         {
             InitializeComponent();
+        }
+        public ProductDetailForm( string title ) : this()
+        {
+            InitializeComponent();
+
+            Text = title;
+        }
+
+        public ProductDetailForm( string title, Product product )
+        {
+            InitializeComponent();
+
+            Text = title;
+            Product = product;
+        }
+        #endregion
+
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad(e);
+            
+            if (Product != null)
+            {
+                _txtName.Text = Product.Name;
+                _txtDescription.Text = Product.Description;
+                _txtPrice.Text = Product.Price.ToString();
+                _chkDiscontinued.Checked = Product.IsDiscontinued;
+            };
         }
 
         /// <summary>Gets or sets the product being shown.</summary>
         public Product Product { get; set; }
-
-        private void textBox3_TextChanged( object sender, EventArgs e )
-        {
-
-        }
-
-        private void textBox1_TextChanged( object sender, EventArgs e )
-        {
-
-        }
 
         private void OnCancel ( object sender, EventArgs e )
         {
@@ -34,6 +54,12 @@ namespace Nile.Windows {
             Close();
         }
 
+
+        private void ShowError(string message, string title)
+        {
+            MessageBox.Show(this, message, title,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void OnSave ( object sender, EventArgs e )
         {
             var product = new Product();
@@ -42,7 +68,15 @@ namespace Nile.Windows {
             product.Price = GetPrice();
             product.IsDiscontinued = _chkDiscontinued.Checked;
 
-            //TODO: Add validation
+            // Add validation
+
+            var error = product.Validate();
+            if (!String.IsNullOrEmpty(error))
+            {
+                //Show the error
+                ShowError(error, "Validation Error");
+                return;
+            };
 
             Product = product;
             this.DialogResult = DialogResult.OK;
@@ -51,10 +85,8 @@ namespace Nile.Windows {
 
         private decimal GetPrice ( )
         {
-            if (Decimal.TryParse(_txtPrice.Text, out decimal price))
-            {
-                return price;
-            }
+            if (Decimal.TryParse(_txtPrice.Text, out decimal price))          
+                return price;         
 
             //TODO: Validate price
             return 0;
