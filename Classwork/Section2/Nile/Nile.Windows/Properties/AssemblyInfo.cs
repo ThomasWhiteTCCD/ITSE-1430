@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nile.Windows")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nile.Windows")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("Thomas White")]
+[assembly: AssemblyProduct("Nile")]
+[assembly: AssemblyCopyright("Copyright ©  2017 - ITSE 1430")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

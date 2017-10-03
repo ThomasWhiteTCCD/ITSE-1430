@@ -18,14 +18,14 @@ namespace Nile.Windows {
         }
         public ProductDetailForm( string title ) : this()
         {
-            InitializeComponent();
+            //InitializeComponent();
 
             Text = title;
         }
 
         public ProductDetailForm( string title, Product product )
         {
-            InitializeComponent();
+            //InitializeComponent();
 
             Text = title;
             Product = product;
@@ -90,6 +90,16 @@ namespace Nile.Windows {
 
             //TODO: Validate price
             return 0;
+        }
+
+        private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
+        {
+            
+        }
+
+        private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )
+        {
+
         }
     }
 }
