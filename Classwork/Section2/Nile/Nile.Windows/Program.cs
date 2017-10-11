@@ -11,7 +11,16 @@ namespace Nile.Windows {
         /// </summary>
         [STAThread]
         static void Main()
-        {           
+        {
+            // String split example
+            //var csv = "Field1 | Field2 ,, Field3 | Field4";
+            //var delimiters = new char[2];
+            //delimiters[0] = '|';
+            //delimiters[1] = ',';
+
+            //var tokens = csv.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            //var numberOfElements = tokens.Length;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

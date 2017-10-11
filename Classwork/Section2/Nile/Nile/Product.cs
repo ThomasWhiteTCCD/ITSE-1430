@@ -18,6 +18,9 @@ namespace Nile
             // Cross field initialization
         }
 
+        /// <summary>Gets or sets the unique identifier.</summary>
+        public int Id { get; set; }
+
         //public readonly Product None = new Product();
 
         /// <summary>Gets or sets the name.</summary>
@@ -59,6 +62,20 @@ namespace Nile
         {
             return Name;
         }
+
+        // Size of the product
+        public int[] Sizes
+        {
+            get 
+            {
+                var copySizes = new int[_sizes.Length];
+                Array.Copy(_sizes, copySizes, _sizes.Length);
+
+                return copySizes;
+            }           
+        }
+
+        private int[] _sizes = new int[4];
 
         // public abstract string Validate2();
 
