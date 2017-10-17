@@ -62,28 +62,39 @@ namespace Nile.Windows {
             MessageBox.Show(this, message, title,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        private void OnSave ( object sender, EventArgs e )
+        private void OnSave( object sender, EventArgs e )
         {
             if (!ValidateChildren())
             {
                 return;
             };
 
-            var product = new Product();
-            product.Id = Product?.Id ?? 0;
-            product.Name = _txtName.Text;
-            product.Description = _txtDescription.Text;
-            product.Price = GetPrice(_txtPrice);
-            product.IsDiscontinued = _chkDiscontinued.Checked;
+            //var product = new Product();
+            //product.Id = Product?.Id ?? 0;
+            //product.Name = _txtName.Text;
+            //product.Description = _txtDescription.Text;
+            //product.Price = GetPrice(_txtPrice);
+            //product.IsDiscontinued = _chkDiscontinued.Checked;
+
+            // Object initializer syntax
+            var product = new Product() {
+                Id = Product?.Id ?? 0,
+                Name = _txtName.Text,
+                Description = _txtDescription.Text,
+                Price = GetPrice(_txtPrice),
+                IsDiscontinued = _chkDiscontinued.Checked,
+            };
 
             // Add validation
 
-            var error = product.Validate();
-            if (!String.IsNullOrEmpty(error))
+            // Using IValidateableObject
+
+            // Using IValidateableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))               
             {
                 //Show the error
-                ShowError(error, "Validation Error");
-                return;
+               ShowError("Not valid", "Validation Error");
+               return;
             };
 
             Product = product;

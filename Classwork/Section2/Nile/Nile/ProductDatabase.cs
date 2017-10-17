@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,28 +12,33 @@ namespace Nile
     {
         public ProductDatabase()
         {
-            var product = new Product();
-            product.Name = "Galaxy S7";
-            product.Price = 650;
-            Add(product);
+            // Long way
+            // var product = new Product();
+            // product.Name = "Samsung Note 7";
 
-            product = new Product();
-            product.Name = "Samsung Note 7";
-            product.Price = 150;
-            product.IsDiscontinued = true;
-            Add(product);
+            // Object initializer syntax
+            //_products.Add(new Product() { Id = 1, Name = "Galaxy S7", Price = 650 });
+            //_products.Add(new Product() { Id = 2, Name = "Samsung Note 7",Price = 150, IsDiscontinued = true });            
+            //_products.Add(new Product() { Id = 3, Name = "Windows Phone", Price = 100 });          
+            //_products.Add(new Product() { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true });
 
-            product = new Product();
-            product.Name = "Windows Phone";
-            product.Price = 100;
-            Add(product);
+            // Collection initializer syntax
+            //_products = new List<Product>() {
+            //    new Product() { Id = 1, Name = "Galaxy S7", Price = 650 },
+            //    new Product() { Id = 2, Name = "Samsung Note 7", Price = 150, IsDiscontinued = true },
+            //    new Product() { Id = 3, Name = "Windows Phone", Price = 100 },
+            //    new Product() { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true },
+            //};
 
-            product = new Product();
-            product.Name = "iPhone X";
-            product.Price = 1900;
-            product.IsDiscontinued = true;
-            Add(product);
-
+            // Collection initializer syntax with array
+            _products.AddRange(new [] {
+                new Product() { Id = 1, Name = "Galaxy S7", Price = 650 },
+                new Product() { Id = 2, Name = "Samsung Note 7", Price = 150, IsDiscontinued = true },
+                new Product() { Id = 3, Name = "Windows Phone", Price = 100 },
+                new Product() { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true },
+            });
+            
+            _nextId = _products.Count + 1;
         }
 
         /// <summary>Adds a product.</summary>
@@ -44,8 +50,11 @@ namespace Nile
             if(product == null)           
                 return null;
 
-            if (!String.IsNullOrEmpty(product.Validate()))
+            // Using IValidateableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))
                 return null;
+            //if (!String.IsNullOrEmpty(product.Validate()))
+            //    return null;
 
             // Copy product (emulate database)
             var newProduct = CopyProduct(product);
@@ -131,8 +140,11 @@ namespace Nile
             if (product == null)
                 return null;
 
-            if (!String.IsNullOrEmpty(product.Validate()))
+            // Using IValidateableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))
                 return null;
+            //if (!String.IsNullOrEmpty(product.Validate()))
+            //    return null;
 
             // Get existing product
             var existing = FindProduct(product.Id);

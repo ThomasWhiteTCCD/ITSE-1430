@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,13 @@ namespace Nile
     /// <remarks> 
     /// This will represent a product with other stuff.
     /// </remarks>
-    public class Product 
+    public class Product : IValidatableObject
     {
-
+        // Don't need this constructor
         public Product()
         {
             // Cross field initialization
-        }
+        }        
 
         /// <summary>Gets or sets the unique identifier.</summary>
         public int Id { get; set; }
@@ -81,21 +82,25 @@ namespace Nile
 
         /// <summary>Validates the object.</summary>
         /// <returns>The error message or null.</returns>
-        public virtual string Validate ()
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
-            // Name cannot be empty
-            if(String.IsNullOrEmpty(Name))          
-                return "Name cannot be empty.";
-            
-            // Price >= 0
-            if(Price < 0)            
-                return "Price must be >= 0.";           
+            //var errors = new List<ValidationResult>();
 
-            return null;
+            // Name cannot be empty
+            if (String.IsNullOrEmpty(Name))
+                yield return new ValidationResult("Name cannot be empty.", new[] { nameof(Name) });
+            //errors.Add(new ValidationResult("Name cannot be empty.", new[] { nameof(Name) }));
+
+            // Price >= 0
+            if (Price < 0)
+                yield return new ValidationResult("Price must be >= 0.", new[] { nameof(Price) });
+                //errors.Add(new ValidationResult("Price must be >= 0.", new[] { nameof(Price) }));
+
+            //return errors;
         }
 
-       // public int ICanOnlyhSetIt { get; private set; }
-       // public int ICanOnlyhSetIt2 { get; }      
+        // public int ICanOnlyhSetIt { get; private set; }
+        // public int ICanOnlyhSetIt2 { get; }      
 
         private string _name;
         private string _description;
