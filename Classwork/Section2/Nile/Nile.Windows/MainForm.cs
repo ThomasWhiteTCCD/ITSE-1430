@@ -146,7 +146,7 @@ namespace Nile.Windows
             functionToCall(this, EventArgs.Empty);
         }
 
-        private ProductDatabase _database = new ProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
         //Function of the product database
         //private Product[] _products = new Product[100];
     }
