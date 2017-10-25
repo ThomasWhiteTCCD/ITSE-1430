@@ -89,8 +89,9 @@ namespace Nile.Stores
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
         protected override Product UpdateCore(Product existing, Product product)
-        {                        
+        {
             // Replace 
+            existing = FindProduct(product.Id);
             _products.Remove(existing);
 
             // Copy product (emulate database)          
@@ -111,6 +112,7 @@ namespace Nile.Stores
             var newProduct = new Product();
             newProduct.Id = product.Id;
             newProduct.Name = product.Name;
+            newProduct.Description = product.Description;
             newProduct.Price = product.Price;
             newProduct.IsDiscontinued = product.IsDiscontinued;
 
