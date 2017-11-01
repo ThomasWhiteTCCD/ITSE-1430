@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Forms;
+using Nile.Stores;
 
 namespace Nile.Windows 
 {
@@ -18,6 +19,9 @@ namespace Nile.Windows
         {
             // Once the object is created and before the window renders
             base.OnLoad(e);
+
+            _database =  = new Nile.Stores.FileProductDatabase("products.csv");
+            ProductDatabaseExtensions.WithSeedData(_database);
 
             _gridProducts.AutoGenerateColumns = false;
             UpdateList();                  
@@ -151,9 +155,9 @@ namespace Nile.Windows
             about.ShowDialog(this);
         }
 
-        public delegate void ButtonClickCall( object sender, EventArgs e );        
+        public delegate void ButtonClickCall( object sender, EventArgs e );
 
-        private IProductDatabase _database = new Nile.Stores.FileProductDatabase("products.csv");
+        private IProductDatabase _database;
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
