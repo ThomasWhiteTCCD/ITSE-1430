@@ -29,11 +29,7 @@ namespace Nile.Stores
                 // Reset the _nextId
                 _nextId = newProduct.Id + 1;
             };
-
-            // temporary crash
-            if (_nextId % 2 == 0)
-                throw new InvalidOperationException("ID invalid.");
-
+        
             // Add
             return CopyProduct(newProduct);
         }       

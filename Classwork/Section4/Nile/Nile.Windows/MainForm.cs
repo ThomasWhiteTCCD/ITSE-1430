@@ -124,8 +124,25 @@ namespace Nile.Windows
                 return;
 
             // Delete product
-            _database.Remove(product.Id);
+            try
+            {
+                _database.Remove(product.Id);
+            } catch (Exception e)
+            {
+                DisplayError(e, "Delete Failed");
+            };
+            
             UpdateList();
+        }
+
+        private void DisplayError ( Exception error, string title = "Error" )
+        {
+            DisplayError(error.Message, title);
+        }
+
+        private void DisplayError (string message, string title = "Error")
+        {
+            MessageBox.Show(this, message, title ?? "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void OnHelpAbout( object sender, EventArgs e )
@@ -136,7 +153,7 @@ namespace Nile.Windows
 
         public delegate void ButtonClickCall( object sender, EventArgs e );        
 
-        private IProductDatabase _database = new Nile.Stores.SeedMemoryProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.FileProductDatabase("products.csv");
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
