@@ -20,10 +20,18 @@ namespace Nile.Windows
             // Once the object is created and before the window renders
             base.OnLoad(e);
 
-            _database =  = new Nile.Stores.FileProductDatabase("products.csv");
-            ProductDatabaseExtensions.WithSeedData(_database);
+            //_miFileExit.Click += OnFileExit;
+
+            //Lambda
+            _miFileExit.Click += (s, ea) => Close();
+
+
+            _database = new Nile.Stores.FileProductDatabase("products.csv");
+            //ProductDatabaseExtensions.WithSeedData(_database);
+            _database.WithSeedData();
 
             _gridProducts.AutoGenerateColumns = false;
+
             UpdateList();                  
         }        
 
@@ -56,10 +64,10 @@ namespace Nile.Windows
             //_gridProducts.DataSource = _products;            
         }
 
-        private void OnFileExit( object sender, EventArgs e )
-        {
-            Close();
-        }
+        //private void OnFileExit( object sender, EventArgs e )
+        //{
+        //    Close();
+        //}
 
         private void OnProductAdd( object sender, EventArgs e )
         {            

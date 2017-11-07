@@ -46,33 +46,12 @@ namespace Nile.Stores
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
         protected override IEnumerable<Product> GetAllCore()
-        {            
-            foreach (var product in _products)
-                yield return CopyProduct(product);
+        {
+            return from item in _products
+                   select CopyProduct(item);      
 
-            #region<Ignore>
-            //// How many products
-            //var count = 0;
-
-            //foreach(var product in _list)
-            //{
-            //    if(product != null)
-            //    {
-            //        ++count;
-            //    }
-            //};
-
-            //var items = new Product[count];
-            //var index = 0;
-
-            //foreach(var product in _list)
-            //{
-            //    if(product != null)
-            //        items[index++] = CopyProduct(product);
-            //};
-
-            //return items;
-            #endregion
+            //foreach (var product in _products)
+            //    yield return CopyProduct(product);
         }
 
         /// <summary>Removes the product.</summary>
@@ -121,16 +100,31 @@ namespace Nile.Stores
         // Find a product by ID
         private Product FindProduct(int id)
         {
-            foreach (var product in _products)
-            {
-                if (product.Id == id)
-                {
-                    _products.Remove(product);
-                    return product;
-                };
-            };
 
-            return null;
+            // LINQ syntax
+            return (from product in _products
+                    where product.Id == id
+                    select product).FirstOrDefault();
+
+            return _products.Where( p => p.Id == id )
+                            .Select( p => p )
+                            .FirstOrDefault();
+
+
+            //return (from product in _products
+            //        where product.Id == id
+            //        select product).FirstOrDefault();
+
+            //foreach (var product in _products)
+            //{
+            //    if (product.Id == id)
+            //    {
+            //        _products.Remove(product);
+            //        return product;
+            //    };
+            //};
+
+            //return null;
         }
 
         //private Product[] _products = new Product[100];
