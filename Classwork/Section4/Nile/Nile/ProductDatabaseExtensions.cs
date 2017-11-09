@@ -19,6 +19,39 @@ namespace Nile
 
             return null;
         }
+
+        public static IEnumerable<Product> GetProductByDiscountPrice(this IProductDatabase source,
+                                                                      Func<Product, decimal> priceCalculator)
+        {
+            //orderby priceCalculator(product)
+            var products = from product in source.GetAll()
+                           where product.IsDiscontinued 
+                           //select new SomeType() {
+                           select new {
+                                Product = product, 
+                                AdjustedPrice = product.IsDiscontinued ? priceCalculator(product) : product.Price
+                           };
+
+            // Instead of anonymous type
+            // var tuple = Tuple.Create<Product, decimal>(new Product(), 10M);
+            //(Product, AdjustedPrice) = (new Product, 10M);
+
+            return from product in products
+                   orderby product.AdjustedPrice
+                   select product.Product;
+
+        }
+
+        //private (Product, decimal) DoSomething ()
+        //{
+        //    return (new Product, 10M);
+        //}
+
+        //private sealed class SomeType 
+        //{
+        //    public Product Product { get; set; }
+        //    public decimal AdjustedPrice { get; set; }
+        //}
         ///<summary>Adds seed data to a database.</summary>
         ///<param names="source">The data to seed.</param>
         public static void WithSeedData ( this IProductDatabase source)

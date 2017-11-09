@@ -110,7 +110,6 @@ namespace Nile.Stores
                             .Select( p => p )
                             .FirstOrDefault();
 
-
             //return (from product in _products
             //        where product.Id == id
             //        select product).FirstOrDefault();

@@ -21,16 +21,18 @@ namespace Nile
         /// <value>Never returns null.</value>
         public string Name
         {
-            get { return _name ?? ""; }
-            set { _name = value?.Trim(); }
+            get => _name ?? "";
+            set => _name = value?.Trim();
         }
 
         /// <summary>Gets or sets the descripition.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value?.Trim(); }
+            get => _description ?? "";
+            set => _description = value?.Trim(); 
         }
+
+        public decimal CalculatedProperty => 0M;
 
         /// <summary>Gets or sets the price.</summary>
         public decimal Price { get; set; } = 0;
@@ -38,12 +40,9 @@ namespace Nile
         /// <summary>Determines if discontinued..</summary>
         public bool IsDiscontinued { get; set; }
 
-        public const decimal DiscontinuedDiscountRate = 0.10M;       
+        public const decimal DiscontinuedDiscountRate = 0.10M;
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;       
 
         // Size of the product
         //public int[] Sizes
