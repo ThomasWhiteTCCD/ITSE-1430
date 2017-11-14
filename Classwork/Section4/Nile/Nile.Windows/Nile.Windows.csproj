@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -100,6 +101,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nile.Stores.Sql\Nile.Stores.Sql.csproj">
+      <Project>{28e609d4-642f-41a8-bcbc-80791c1d8351}</Project>
+      <Name>Nile.Stores.Sql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nile\Nile.csproj">
       <Project>{718c00c0-b81c-4731-abc8-af6f524996ee}</Project>
       <Name>Nile</Name>

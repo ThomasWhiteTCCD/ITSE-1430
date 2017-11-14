@@ -106,9 +106,9 @@ namespace Nile.Stores
                     where product.Id == id
                     select product).FirstOrDefault();
 
-            return _products.Where( p => p.Id == id )
-                            .Select( p => p )
-                            .FirstOrDefault();
+            //return _products.Where( p => p.Id == id )
+            //                .Select( p => p )
+            //                .FirstOrDefault();
 
             //return (from product in _products
             //        where product.Id == id
