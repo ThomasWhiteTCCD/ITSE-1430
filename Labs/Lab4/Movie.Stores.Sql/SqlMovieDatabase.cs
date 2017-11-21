@@ -1,4 +1,10 @@
-﻿
+﻿/* Name: Thomas White
+ * Class: ITSE 1430
+ * Project: 4th Programming Assignment
+ * Class Time: 5:00 pm
+ * Date: 11/19/2017
+ */
+
 using MovieLib.Stores;
 using System;
 using System.Collections.Generic;
