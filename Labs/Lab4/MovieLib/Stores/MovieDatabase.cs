@@ -41,7 +41,7 @@ namespace MovieLib.Stores
                 // Check if movie title already exists
                 foreach (var tempMovie in GetAllCore())
                 {
-                    if (tempMovie.Title == movie.Title)
+                    if (tempMovie.Title.ToLower() == movie.Title.ToLower())
                     {
                         throw new InvalidOperationException("Movie title already exists");
                     }
