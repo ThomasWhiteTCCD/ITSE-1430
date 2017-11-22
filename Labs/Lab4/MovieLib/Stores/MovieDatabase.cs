@@ -129,7 +129,7 @@ namespace MovieLib.Stores
                 foreach (var tempMovie in GetAllCore())
                 {
                     if (tempMovie.Title.ToLower() == movie.Title.ToLower() && 
-                        tempMovie.Description != movie.Description)
+                        tempMovie.Description != movie.Description && tempMovie.Length != movie.Length)
                     {
                         throw new InvalidOperationException("Movie title already exists");
                     }
