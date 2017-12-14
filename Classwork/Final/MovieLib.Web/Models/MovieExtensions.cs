@@ -31,9 +31,11 @@ namespace MovieLib.Web.Models
                 Id = source.Id,
                 Title = source.Title,
 
+                // Thomas White - CR1: Added an assignment from source.Rating to Rating
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
+                Rating = source.Rating,
                 ReleaseYear = source.ReleaseYear
             };
         }
@@ -48,9 +50,11 @@ namespace MovieLib.Web.Models
                 Id = source.Id,
                 Title = source.Title,
 
+                // Thomas White - CR1: Added an assignment from source.Rating to Rating
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
+                Rating = source.Rating,
                 ReleaseYear = source.ReleaseYear
             };
         }

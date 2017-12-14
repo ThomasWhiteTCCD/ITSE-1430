@@ -42,7 +42,7 @@ namespace MovieLib.Web.Controllers
                     _database.Add(model.ToMovie());
 
                     return RedirectToAction("List");
-                } catch (Exception e)
+                }catch (Exception e)
                 {
                     ModelState.AddModelError("", e.Message);
                 };                
@@ -100,6 +100,9 @@ namespace MovieLib.Web.Controllers
         {
             var movies = from m in _database.GetAll()
                          select m;
+
+            // Thomas White - CR5: Sorted the movies by title with an OrderBy()
+            movies = movies.OrderBy(movie => movie.Title);
             
             return View(movies.ToViewModel());
         }

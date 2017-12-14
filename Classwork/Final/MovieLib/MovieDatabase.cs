@@ -28,6 +28,14 @@ namespace MovieLib.Data
             if (existing != null)
                 throw new ArgumentException("Movie with same title already exists.", nameof(movie));
 
+            // Thomas White - CR2: Added validation for release year
+            if (movie.ReleaseYear < 1900 || movie.ReleaseYear > 2100)
+                throw new ArgumentOutOfRangeException("Release year must be between 1900 and 2100.");
+
+            // Thomas White - CR4: Added validation for movie title
+            if (movie.Title.Length < 2 || movie.Title.Length > 100)
+                throw new ArgumentOutOfRangeException("Movie Title must be between 2 and 100 characters.");
+
             //Create the new movie
             return AddCore(movie);
         }
@@ -46,7 +54,8 @@ namespace MovieLib.Data
 
         /// <summary>Gets all the movies.</summary>
         /// <returns>The list of movies.</returns>
-        public IEnumerable<Movie> GetAll()
+        /// Thomas White - CR0: Changed Getall to GetAll
+        public IEnumerable<Movie> GetAll ()
         {
             return GetAllCore();
         }
@@ -64,7 +73,9 @@ namespace MovieLib.Data
                 throw new ArgumentOutOfRangeException(nameof(id), "ID must be > 0.");
 
             var existing = GetCore(id);
-            if (existing != null)
+            // Thomas White CR3: Changed to check if existing was not null 
+            // to check if existing was null
+            if (existing == null)
                 return false;
 
             RemoveCore(id);
@@ -97,7 +108,15 @@ namespace MovieLib.Data
             existing = FindByTitleCore(movie.Title);
             if (existing != null && existing.Id != movie.Id)
                 throw new ArgumentException("Movie with same title already exists.", nameof(movie));
-                                  
+
+            // Thomas White - CR2: Added validation for release year
+            if (movie.ReleaseYear < 1900 || movie.ReleaseYear > 2100)
+                throw new ArgumentOutOfRangeException("Release year must be between 1900 and 2100.");
+
+            // Thomas White - CR4: Added validation for movie title
+            if (movie.Title.Length < 2 || movie.Title.Length > 100)
+                throw new ArgumentOutOfRangeException("Movie Title must be between 2 and 100 characters.");
+
             return UpdateCore(movie);
         }
 

@@ -30,6 +30,7 @@ namespace MovieLib
         /// <summary>Gets or sets the movie rating.</summary>
         public Rating Rating { get; set; }
 
+        /// <summary>Gets or sets the movie release year.</summary>
         public int ReleaseYear { get; set; }
 
         /// <summary>Gets or sets the title.</summary>
